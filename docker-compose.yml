@@ -1,0 +1,21 @@
+version: '3'
+services:
+  app:
+    build: .
+    ports:
+      - "8000:8000"
+    depends_on:
+      - minio
+  minio:
+    image: minio/minio
+    ports:
+      - "9000:9000"
+    environment:
+      MINIO_ACCESS_KEY: minio1234
+      MINIO_SECRET_KEY: minio1234
+    volumes:
+      - minio_data:/data
+    command: server /data
+
+volumes:
+  minio_data:
